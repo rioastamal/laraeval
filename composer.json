@@ -1,0 +1,24 @@
+{
+    "name": "astasoft/laraeval",
+    "description": "",
+    "authors": [
+        {
+            "name": "Rio Astamal",
+            "email": "me@rioastamal.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.x"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations",
+            "src/models"
+        ],
+        "psr-0": {
+            "Astasoft\\Laraeval": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
