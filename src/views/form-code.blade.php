@@ -6,17 +6,6 @@
             <textarea name="code" id="code">{{{ $code }}}</textarea>
         </form>
         <div id="output">
-            hjfsdahfjsa
-
-            fdsafkdsjfkldsf
-
-            flsdafkldaslkf
-
-            flkasfkljdaf
-
-            f;sajflkjsdaf
-
-            
         @if (Input::get('laravel_submit'))
             {{ $output }}
         @endif
@@ -36,7 +25,6 @@
     function addClass(element, cssClass) {
         var indexPosition = docID(element).className.indexOf(cssClass);
         var space = ' ';
-        var oldClass = '';
 
         if (indexPosition == -1) {
             // 1) not found
@@ -46,16 +34,39 @@
                 // empty class
                 space = '';
             }
-        } else {
-            
+
+            docID(element).className = docID(element).className + space + cssClass;
         }
+
+        return docID(element);
+    }
+    function removeClass(element, cssClass) {
+        var indexPosition = docID(element).className.indexOf(cssClass);
+        var space = ' ';
+
+        if (indexPosition == -1) {
+            // no class found
+            return docID(element);
+        }
+
+        if (indexPosition == 0) {
+            // empty class
+            space = '';
+        }
+
+        docID(element).className = docID(element).className.replace(space + cssClass, '');
+        console.log(docID(element).className);
     }
 
     docID('anchor-output').onclick = function() {
         docID('output').style.display = 'block';
+        removeClass('anchor-code', 'active');
+        addClass('anchor-output', 'active');
     }
     docID('anchor-code').onclick = function() {
         docID('output').style.display = 'none';
+        removeClass('anchor-output', 'active');
+        addClass('anchor-code', 'active');
     }
 
     /**
@@ -96,6 +107,12 @@
     });
     window.onload = function() {
         setFullScreen(editor, true);
+        docID('output').style.height = winHeight() + "px";
+        @if (Input::get('laravel_submit'))  
+        docID('output').style.display = 'block';
+        @endif
+    }
+    window.rezie = function() {
         docID('output').style.height = winHeight() + "px";
     }
     </script>
