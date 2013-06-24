@@ -2,12 +2,12 @@
 
 @section('content')
     <div id="wrapper">
-        <form action="{{ URL::route('laraeval-main') }}" method="post">
+        <form action="{{ URL::route('laraeval-main') }}" method="post" name="frmlaraeval">
             <textarea name="code" id="code">{{{ $code }}}</textarea>
         </form>
         <div id="output">
-        @if (Input::get('laravel_submit'))
-            {{ $output }}
+        @if (Input::get('code'))
+            <pre>{{ $output }}</pre>
         @endif
         </div>
         <div id="switcher">
@@ -103,7 +103,15 @@
         indentUnit: 4,
         indentWithTabs: true,
         tabMode: "shift",
-        theme: 'ambiance'
+        theme: 'ambiance',
+        onKeyEvent: function(ed, e) {
+            // catch CTRL + ENTER event
+            charCode = e.which ? e.which : e.keyCode;	// Firefox/Mozilla => keyCode
+            if (e.ctrlKey && charCode == 13) {
+                document.frmlaraeval.submit();
+                return false;
+            }
+        }
     });
     window.onload = function() {
         setFullScreen(editor, true);
