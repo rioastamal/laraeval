@@ -19,9 +19,11 @@
     </div>
     <script>
     var editor = null;
+
     function docID(elementID) {
         return document.getElementById(elementID);
     }
+
     function addClass(element, cssClass) {
         var indexPosition = docID(element).className.indexOf(cssClass);
         var space = ' ';
@@ -40,6 +42,7 @@
 
         return docID(element);
     }
+
     function removeClass(element, cssClass) {
         var indexPosition = docID(element).className.indexOf(cssClass);
         var space = ' ';
@@ -55,18 +58,25 @@
         }
 
         docID(element).className = docID(element).className.replace(space + cssClass, '');
-        console.log(docID(element).className);
     }
-
-    docID('anchor-output').onclick = function() {
+    
+    function showOutput() {
         docID('output').style.display = 'block';
         removeClass('anchor-code', 'active');
         addClass('anchor-output', 'active');
     }
-    docID('anchor-code').onclick = function() {
+
+    function showCode() {
         docID('output').style.display = 'none';
         removeClass('anchor-output', 'active');
         addClass('anchor-code', 'active');
+    }
+
+    docID('anchor-output').onclick = function() {
+        showOutput();
+    }
+    docID('anchor-code').onclick = function() {
+        showCode();
     }
 
     /**
@@ -103,24 +113,37 @@
         indentUnit: 4,
         indentWithTabs: true,
         tabMode: "shift",
-        theme: 'ambiance',
-        onKeyEvent: function(ed, e) {
-            // catch CTRL + ENTER event
-            charCode = e.which ? e.which : e.keyCode;	// Firefox/Mozilla => keyCode
-            if (e.ctrlKey && charCode == 13) {
-                document.frmlaraeval.submit();
-                return false;
-            }
-        }
+        theme: 'ambiance'
     });
     window.onload = function() {
         setFullScreen(editor, true);
         docID('output').style.height = winHeight() + "px";
-        @if (Input::get('laravel_submit'))  
-        docID('output').style.display = 'block';
-        @endif
+        @if (Input::get('code')) 
+        showOutput();
+        @endif 
     }
-    window.rezie = function() {
+
+    // catch the user keyboard event
+    window.onkeydown = function(e) {
+        // catch CTRL + ENTER event
+        charCode = e.which ? e.which : e.keyCode;	// Firefox/Mozilla => keyCode
+        if (e.ctrlKey && charCode == 13) {
+            document.frmlaraeval.submit();
+            return false;
+        }
+        // catch CTRL + Right Arrow
+        if (e.ctrlKey && charCode == 37) {
+            // show output window
+            showCode();
+            editor.focus();
+        }
+        // catch CTRL + Left Arrow
+        if (e.ctrlKey && charCode == 39) {
+            // show code window
+            showOutput();
+        }
+    }
+    window.onresize = function() {
         docID('output').style.height = winHeight() + "px";
     }
     </script>

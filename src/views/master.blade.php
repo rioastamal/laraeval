@@ -34,7 +34,7 @@
         z-index: 1000;
         background: #202020;
         font-size: 12px;
-        color: #666;
+        color: #999;
         overflow: auto;
       }
       #switcher ul {
@@ -43,6 +43,7 @@
           display: inline;
           right: 0;
           top: -5px;
+          font-family: Monaco, Menlo,"Andale Mono","lucida console","Courier New",monospace !important;
       }
       #switcher ul li {
           float: left;
