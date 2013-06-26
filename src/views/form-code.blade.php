@@ -131,14 +131,14 @@
             document.frmlaraeval.submit();
             return false;
         }
-        // catch CTRL + Right Arrow
-        if (e.ctrlKey && charCode == 37) {
+        // catch CTRL + comma
+        if (e.ctrlKey && charCode == 188) {
             // show output window
             showCode();
             editor.focus();
         }
-        // catch CTRL + Left Arrow
-        if (e.ctrlKey && charCode == 39) {
+        // catch CTRL + dot
+        if (e.ctrlKey && charCode == 190) {
             // show code window
             showOutput();
         }
