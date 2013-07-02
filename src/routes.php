@@ -20,22 +20,21 @@ CODE;
         'code' => $default_code,
         'output' => ''
     );
-    return View::make('laraeval::form-code', $data);
+    return View::make('laraeval::code-editor', $data);
 });
 
 // Let's eval the code
 Route::post('laraeval', array('as' => 'laraeval-main', function() {
-    $post = Input::get();
-    $laraeval = new Laraeval($post['code']);
+    $laraeval = new Laraeval(Input::get('code'));
     $output = $laraeval->execute();
     
     if (strlen($output) === 0) {
-        $output = 'Code produces no output.';
+        return Response::make('Code produced no output.', '500');
     }
-    
+
     $data = array(
-        'code' => $post['code'],
         'output' => $output
     );
-    return View::make('laraeval::form-code', $data);
+
+    return View::make('laraeval::iframe-output', $data);
 }));

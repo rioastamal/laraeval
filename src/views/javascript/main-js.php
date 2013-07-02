@@ -1,22 +1,3 @@
-@extends('laraeval::master')
-
-@section('content')
-    <div id="wrapper">
-        <form action="{{ URL::route('laraeval-main') }}" method="post" name="frmlaraeval">
-            <textarea name="code" id="code">{{{ $code }}}</textarea>
-        </form>
-        <div id="output">
-        @if (Input::get('code'))
-            <pre>{{ $output }}</pre>
-        @endif
-        </div>
-        <div id="switcher">
-            <ul>
-                <li><a href="javascript:void(0)" class="active" id="anchor-code">Code</a></li>
-                <li><a href="javascript:void(0)" class="last" id="anchor-output">Output</a></li>
-            </ul>
-        </div>
-    </div>
     <script>
     var editor = null;
 
@@ -117,10 +98,7 @@
     });
     window.onload = function() {
         setFullScreen(editor, true);
-        docID('output').style.height = winHeight() + "px";
-        @if (Input::get('code')) 
-        showOutput();
-        @endif 
+        docID('output').style.height = winHeight() + "px";	
     }
 
     // catch the user keyboard event
@@ -147,4 +125,3 @@
         docID('output').style.height = winHeight() + "px";
     }
     </script>
-@stop
