@@ -20,6 +20,7 @@
 </head>
 <body>
 @if (Input::get('code'))
+<p>EXEC TIME {{ sprintf("%s %s", $exectime['time'], $exectime['format']) }}</p>
 {{ $output }}
 @endif
 <script>

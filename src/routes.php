@@ -34,7 +34,8 @@ Route::post('laraeval', array('as' => 'laraeval-main', function() {
     }
 
     $data = array(
-        'output' => $output
+        'output' => $output,
+        'exectime' => $laraeval->getExecTime()
     );
 
     return View::make('laraeval::iframe-output', $data);

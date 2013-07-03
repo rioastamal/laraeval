@@ -8,6 +8,7 @@ class Laraeval {
     protected $code;
     protected $outputType;
     protected $output;
+    protected $execTime;
 
     /**
      * Constructor
@@ -17,6 +18,7 @@ class Laraeval {
     public function __construct($code='') {
         $this->code = $code;
         $this->outputType = 'string';
+        $this->execTime = 0.0;
     }
     
     /**
@@ -35,7 +37,12 @@ class Laraeval {
         ob_start();
         
         // OK, this is the time...
+        $start = microtime(TRUE);
+        
         $retval = eval($this->code);
+        
+        $end = microtime(TRUE);
+        $this->execTime = $end - $start;
 
         // if the eval() return FALSE then it could be syntax error.
         if ($retval === FALSE) {
@@ -51,6 +58,43 @@ class Laraeval {
         ob_end_clean();
         
         return $this->render();
+    }
+
+    /**
+     * Method for getting the execution time.
+     *
+     * @param
+     */
+    public function getExecTime($format='micro', $precision=4) {
+        $result = array(
+            'time' => 0.0,
+            'format' => 'ms'
+        );
+
+        switch ($format) {
+            case 'nano':
+                $result['time'] = number_format($this->execTime * 1000, $precision);
+                $result['format'] = 'nanoseconds';
+            break;
+
+            case 'mili':
+                $result['time'] = number_format($this->execTime / 1000, $precision);
+                $result['format'] = 'miliseconds';
+            break;
+
+            case 'second':
+                $result['time'] = number_format($this->execTime / 1000000, $precision);
+                $result['format'] = 'seconds';
+            break;
+            
+            case 'micro':
+            default:
+                $result['time'] = number_format($this->execTime, $precision);
+                $result['format'] = 'microseconds';
+            break;
+        }
+
+        return $result;
     }
     
     /**
