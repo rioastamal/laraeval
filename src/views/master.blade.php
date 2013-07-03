@@ -2,12 +2,12 @@
 <html>
 <head>
     <title>Laraeval - Eval the PHP script</title>
-    <link rel="stylesheet" href="{{ asset('packages/astasoft/laraeval/codemirror/lib/codemirror.css') }}" />
-    <link rel="stylesheet" href="{{ asset('packages/astasoft/laraeval/codemirror/theme/ambiance.css') }}" />
-    <script src="{{ asset('packages/astasoft/laraeval/codemirror/lib/codemirror.js') }}"></script>
-    <script src="{{ asset('packages/astasoft/laraeval/codemirror/addon/edit/matchbrackets.js') }}"></script>
-    <script src="{{ asset('packages/astasoft/laraeval/codemirror/mode/clike/clike.js') }}"></script>
-    <script src="{{ asset('packages/astasoft/laraeval/codemirror/mode/php/php.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('packages/laraeval/laraeval/codemirror/lib/codemirror.css') }}" />
+    <link rel="stylesheet" href="{{ asset('packages/laraeval/laraeval/codemirror/theme/ambiance.css') }}" />
+    <script src="{{ asset('packages/laraeval/laraeval/codemirror/lib/codemirror.js') }}"></script>
+    <script src="{{ asset('packages/laraeval/laraeval/codemirror/addon/edit/matchbrackets.js') }}"></script>
+    <script src="{{ asset('packages/laraeval/laraeval/codemirror/mode/clike/clike.js') }}"></script>
+    <script src="{{ asset('packages/laraeval/laraeval/codemirror/mode/php/php.js') }}"></script>
     <style type="text/css">
     .CodeMirror-fullscreen {
       display: block;
