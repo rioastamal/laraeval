@@ -1,4 +1,4 @@
-<?php namespace Astasoft\Laraeval;
+<?php namespace Laraeval\Laraeval;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -18,7 +18,7 @@ class LaraevalServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('astasoft/laraeval');
+		$this->package('laraeval/laraeval');
 		
 		require __DIR__ . '/../../routes.php';
 	}

@@ -1,5 +1,5 @@
 {
-    "name": "astasoft/laraeval",
+    "name": "laraeval/laraeval",
     "description": "",
     "authors": [
         {
@@ -17,7 +17,7 @@
             "src/models"
         ],
         "psr-0": {
-            "Astasoft\\Laraeval": "src/"
+            "Laraeval\\Laraeval": "src/"
         }
     },
     "minimum-stability": "dev"
