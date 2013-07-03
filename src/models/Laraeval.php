@@ -35,7 +35,14 @@ class Laraeval {
         ob_start();
         
         // OK, this is the time...
-        eval($this->code);
+        $retval = eval($this->code);
+
+        // if the eval() return FALSE then it could be syntax error.
+        if ($retval === FALSE) {
+            throw new Exception("I can not evaluate your code, it could be syntax error or " .
+                                "you're drunk. Please check your code or make some coffee."
+            );
+        }
         
         // catch the output buffer that we getting from eval() above
         $this->output = ob_get_contents();

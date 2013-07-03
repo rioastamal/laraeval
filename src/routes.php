@@ -26,10 +26,11 @@ CODE;
 // Let's eval the code
 Route::post('laraeval', array('as' => 'laraeval-main', function() {
     $laraeval = new Laraeval(Input::get('code'));
-    $output = $laraeval->execute();
-    
-    if (strlen($output) === 0) {
-        return Response::make('Code produced no output.', '500');
+    try {
+        $output = $laraeval->execute();
+    } catch (Exception $e) {
+        // Oops something bad happens,
+        return $e->getMessage();
     }
 
     $data = array(

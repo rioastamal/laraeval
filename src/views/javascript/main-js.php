@@ -98,7 +98,8 @@
     });
     window.onload = function() {
         setFullScreen(editor, true);
-        docID('output').style.height = winHeight() + "px";	
+        docID('output').style.height = winHeight() + "px";
+        editor.focus();
     }
 
     // catch the user keyboard event
