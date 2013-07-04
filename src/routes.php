@@ -14,6 +14,7 @@ Route::get('laraeval', function() {
 // CTRL+ENTER for executing the code
 // CTRL+, for switching to code window
 // CTRL+. for switching to output window
+// CTRL+SHIFT+. for switching to profiler window
 CODE;
 
     $data = array(

@@ -48,7 +48,7 @@
         addClass('anchor-output', 'active');
 
         try {
-            docID('output_iframe').contentWindow.showOutput();
+            window.frames[0].showOutput();
         } catch (e) {
         }
     }
@@ -67,7 +67,7 @@
         addClass('anchor-profiler', 'active');
 
         try {
-            docID('output_iframe').contentWindow.showProfiler();
+            window.frames[0].showProfiler();
         } catch (e) {
         }
     }
@@ -77,6 +77,9 @@
     }
     docID('anchor-code').onclick = function() {
         showCode();
+    }
+    docID('anchor-profiler').onclick = function() {
+        showProfiler();
     }
 
     /**
@@ -140,8 +143,8 @@
             // show code window
             showOutput();
         }
-        // catch CTRL + semi colon
-        if (e.ctrlKey && charCode == 59) {
+        // catch CTRL + SHIFT + dot
+        if (e.ctrlKey && e.shiftKey && charCode == 190) {
             // show profiler window
             showProfiler();
         }

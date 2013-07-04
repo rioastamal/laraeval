@@ -65,9 +65,9 @@
             window.parent.showCode();
             window.parent.editor.focus();
         }
-        // catch CTRL + semicolon
-        if (e.ctrlKey && charCode == 59) {
-            // show output window
+        // catch CTRL + SHIFT + dot
+        if (e.ctrlKey && e.shiftKey && charCode == 190) {
+            // show profiler window
             window.parent.showProfiler();
         }
     }

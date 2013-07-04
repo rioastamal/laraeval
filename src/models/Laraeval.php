@@ -42,7 +42,7 @@ class Laraeval {
 
         $me = $this;
 
-        // listen to the query event
+        // listen to the laravel query event
         Event::listen('illuminate.query', function($query, $bindings, $time) use ($me) {
             $me->addQuery($query, $bindings, $time);
         });
