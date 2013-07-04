@@ -39,7 +39,7 @@
     }
     #output #output_iframe {
         position: absolute;
-        top: 0; left: 0;
+        top: 10px; left: 0;
         border: none;
         width: 100%;
         height: 100%;
@@ -65,6 +65,7 @@
     }
     #switcher ul li a.active {
         border-bottom: 3px solid #333;
+        color: #f1f1f1;
     }
     #switcher ul li a:hover {
         border-bottom: 3px solid #999;

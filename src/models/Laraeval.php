@@ -43,8 +43,8 @@ class Laraeval {
         $me = $this;
 
         // listen to the laravel query event
-        Event::listen('illuminate.query', function($query, $bindings, $time) use ($me) {
-            $me->addQuery($query, $bindings, $time);
+        Event::listen('illuminate.query', function($query, $bindings, $time, $name) use ($me) {
+            $me->addQuery($query, $bindings, $time, $name);
         });
         
         
@@ -169,11 +169,25 @@ class Laraeval {
         }
     }
 
+    /**
+     * Method for accessing the $queries property.
+     *
+     * @return array
+     */
     public function getQueries() {
         return $this->queries;
     }
 
-    public function addQuery($query, $bindings, $time) {
+    /**
+     * Method for adding query that executed by Laravel query.
+     *
+     * @param string $param - First paramete
+     * @param array $binding - number of bindings data
+     * @param float $time - Time taken for executing the query
+     * @param string $name - Name of the connection
+     * @return void;
+     */
+    public function addQuery($query, $bindings, $time, $name) {
         // replace all the `?` bindings with the actual value
         foreach ($bindings as $value) {
             $value = DB::connection()->getPDO()->quote($value);
@@ -181,7 +195,8 @@ class Laraeval {
         }
         $this->queries[] = array(
             'query' => $query,
-            'time' => $time
+            'time' => $time,
+            'name' => $name
         );
     }
     
