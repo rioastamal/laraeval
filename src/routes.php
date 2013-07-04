@@ -35,7 +35,11 @@ Route::post('laraeval', array('as' => 'laraeval-main', function() {
 
     $data = array(
         'output' => $output,
-        'exectime' => $laraeval->getExecTime()
+        'exectime' => $laraeval->getExecTime(),
+        'memory' => array(
+                'usage' => $laraeval->getMemoryUsage(),
+                'peak' => $laraeval->getMemoryUsage('peak')
+        )
     );
 
     return View::make('laraeval::iframe-output', $data);

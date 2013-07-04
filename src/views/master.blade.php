@@ -22,7 +22,7 @@
         position: absolute;
         top: 0; right: 0;
         background: transparent;
-        width: 110px;
+        width: 160px;
         overflow: hidden;
         font-size: 12px;
     }

@@ -44,13 +44,32 @@
     function showOutput() {
         docID('output').style.display = 'block';
         removeClass('anchor-code', 'active');
+        removeClass('anchor-profiler', 'active');
         addClass('anchor-output', 'active');
+
+        try {
+            docID('output_iframe').contentWindow.showOutput();
+        } catch (e) {
+        }
     }
 
     function showCode() {
         docID('output').style.display = 'none';
         removeClass('anchor-output', 'active');
+        removeClass('anchor-profiler', 'active');
         addClass('anchor-code', 'active');
+    }
+
+    function showProfiler() {
+        docID('output').style.display = 'block';
+        removeClass('anchor-code', 'active');
+        removeClass('anchor-output', 'active');
+        addClass('anchor-profiler', 'active');
+
+        try {
+            docID('output_iframe').contentWindow.showProfiler();
+        } catch (e) {
+        }
     }
 
     docID('anchor-output').onclick = function() {
@@ -120,6 +139,11 @@
         if (e.ctrlKey && charCode == 190) {
             // show code window
             showOutput();
+        }
+        // catch CTRL + semi colon
+        if (e.ctrlKey && charCode == 59) {
+            // show profiler window
+            showProfiler();
         }
     }
     window.onresize = function() {

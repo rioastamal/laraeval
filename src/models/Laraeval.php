@@ -9,6 +9,7 @@ class Laraeval {
     protected $outputType;
     protected $output;
     protected $execTime;
+    protected $memory;
 
     /**
      * Constructor
@@ -18,7 +19,11 @@ class Laraeval {
     public function __construct($code='') {
         $this->code = $code;
         $this->outputType = 'string';
-        $this->execTime = 0.0;
+        $this->execTime = array();
+        $this->memory = array(
+            'current' => 0.0,
+            'peak' => 0.0
+        );
     }
     
     /**
@@ -50,6 +55,12 @@ class Laraeval {
                                 "you're drunk. Please check your code or make some coffee."
             );
         }
+
+        // collect memory usage
+        $this->memory = array(
+            'current' => memory_get_usage(TRUE),
+            'peak' => memory_get_peak_usage(TRUE),
+        );
         
         // catch the output buffer that we getting from eval() above
         $this->output = ob_get_contents();
@@ -63,38 +74,89 @@ class Laraeval {
     /**
      * Method for getting the execution time.
      *
-     * @param
+     * @param string $format - One of micro|nano|mili|second.
+     * @param int $precision - Number of precision digit
+     * @return array
      */
     public function getExecTime($format='micro', $precision=4) {
         $result = array(
             'time' => 0.0,
-            'format' => 'ms'
+            'format' => 'microseconds',
+            'short_format' => '&#181;s'   //  µs
         );
+
+        // validate the format
+        $valid_format = array('micro', 'nano', 'mili', 'second');
+        if (in_array($format, $valid_format) === FALSE) {
+            throw new Exception (sprintf('Argument one for %s::%s is not valid.',
+                                         get_class($this),  // vs __CLASS__ ?
+                                         'getExecTime()'
+            ));
+        }
 
         switch ($format) {
             case 'nano':
                 $result['time'] = number_format($this->execTime * 1000, $precision);
                 $result['format'] = 'nanoseconds';
+                $result['short_format'] = 'ns';
             break;
 
             case 'mili':
                 $result['time'] = number_format($this->execTime / 1000, $precision);
                 $result['format'] = 'miliseconds';
+                $result['short_format'] = 'ms';
             break;
 
             case 'second':
                 $result['time'] = number_format($this->execTime / 1000000, $precision);
                 $result['format'] = 'seconds';
+                $result['short_format'] = 'sec';
             break;
             
             case 'micro':
             default:
                 $result['time'] = number_format($this->execTime, $precision);
-                $result['format'] = 'microseconds';
             break;
         }
 
         return $result;
+    }
+
+    /**
+     * Method for getting memory usage used when evaluate the code.
+     *
+     * @param string $use - One of current|peak
+     * @param string $size - One of MB|KB|BYTES
+     */
+    public function getMemoryUsage($use='current', $size='MB') {
+        // check for valid use
+        $valid_use = array('current', 'peak');
+        if (in_array($use, $valid_use) === FALSE) {
+            throw new Exception (sprintf('Argument one for %s::%s is not valid.',
+                                         get_class($this),
+                                         'getMemoryUsage()'
+            ));
+        }
+
+        $memory = $this->memory[$use];
+
+        $size = strtoupper($size);
+        switch ($size) {
+            case 'BYTES':
+                return $memory;
+            break;
+
+            case 'KB':
+                // two digit precision
+                return number_format(($memory / 1000), 2);
+            break;
+            
+            case 'MB':
+            default:
+                // two digit precision
+                return number_format(($memory / 1000000), 2);
+            break;
+        }
     }
     
     /**
