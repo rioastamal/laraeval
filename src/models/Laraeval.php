@@ -174,9 +174,13 @@ class Laraeval {
     }
 
     public function addQuery($query, $bindings, $time) {
+        // replace all the `?` bindings with the actual value
+        foreach ($bindings as $value) {
+            $value = DB::connection()->getPDO()->quote($value);
+            $query = preg_replace('#\?#', $value, $query, 1);
+        }
         $this->queries[] = array(
             'query' => $query,
-            'bindings' => $bindings,
             'time' => $time
         );
     }

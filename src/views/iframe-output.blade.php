@@ -14,6 +14,7 @@
           padding-left: 5px;
           font-family: Monaco, Menlo, "Andale Mono", "lucida console", "Courier New", monospace;
           line-height: 15px;
+          width: 100%;
         }
         #profiler {
             display: none;
@@ -23,18 +24,45 @@
             margin-bottom: 10px;
             padding-bottom: 2px;
         }
+        #profiler p.query {
+            margin-bottom: 10px;
+            padding-bottom: 2px;
+            width: 100%;
+            border-bottom: none;
+        }
+        #profiler p.query span.query-time {
+            float: left;
+            width: 90px;
+            margin-right: 12px;
+            text-align: right;
+        }
+        #profiler p.query span.query-value {
+            width: auto;
+            float: left;
+        }
         #output {
           white-space: pre;
         }
+        .hightlight { color: #DADA05; }
+        .clear { clear: both; }
     </style>
 </head>
 <body>
 @if (Input::get('code')) 
     <div id="profiler">
-        <p>Code Execution Time: {{ sprintf("<strong>%f</strong> %s", $exectime['time'], $exectime['short_format']) }}</p>
-        <p>Memory Usage: {{ sprintf("<strong>%s</strong> %s", $memory['usage'], "MB") }}</p>
-        <p>Memory Peak: {{ sprintf("<strong>%s</strong> %s", $memory['peak'], "MB") }}</p>
-        <p><?php print_r($queries); ?></p>
+        <p>Eval Execution Time: {{ sprintf("<span class=\"hightlight\">%s %s</span>", $exectime['time'], $exectime['short_format']) }}</p>
+        <p>Memory Usage: {{ sprintf("<span class=\"hightlight\">%s %s</span>", $memory['usage'], "MB") }}</p>
+        <p>Memory Peak: {{ sprintf("<span class=\"hightlight\">%s %s</span>", $memory['peak'], "MB") }}</p>
+
+        @if (count($queries) === 0) 
+        <p>SQL Query: <strong>No query given.</strong></p>
+        @else 
+                <p>SQL Query: <strong class="hightlight">{{ count($queries) }}</strong> {{ (count($queries) === 1 ? 'query' : 'queries') }} performed.</p>
+                @foreach ($queries as $query) 
+                <p class="query"><span class="query-time hightlight">{{ $query['time'] }} ms</span><span class="query-value">{{ $query['query'] }}</span></p>
+                <div class="clear"></div>
+                @endforeach 
+        @endif 
     </div>
     
     <div id="output" tabindex="0">{{ $output }}</div>

@@ -31,7 +31,7 @@ Route::post('laraeval', array('as' => 'laraeval-main', function() {
         $output = $laraeval->execute( Input::get('code') );
     } catch (Exception $e) {
         // Oops something bad happens,
-        return $e->getMessage();
+        return sprintf('<span style="color:#c60000;">%s</span>', $e->getMessage());
     }
 
     $data = array(
