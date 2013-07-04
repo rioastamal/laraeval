@@ -10,6 +10,7 @@ class Laraeval {
     protected $output;
     protected $execTime;
     protected $memory;
+    protected $queries;
 
     /**
      * Constructor
@@ -24,6 +25,7 @@ class Laraeval {
             'current' => 0.0,
             'peak' => 0.0
         );
+        $this->queries = array();
     }
     
     /**
@@ -37,6 +39,14 @@ class Laraeval {
         if (strlen($code) > 0) {
             $this->code = $code;
         }
+
+        $me = $this;
+
+        // listen to the query event
+        Event::listen('illuminate.query', function($query, $bindings, $time) use ($me) {
+            $me->addQuery($query, $bindings, $time);
+        });
+        
         
         // start to buffer the output
         ob_start();
@@ -157,6 +167,18 @@ class Laraeval {
                 return number_format(($memory / 1000000), 2);
             break;
         }
+    }
+
+    public function getQueries() {
+        return $this->queries;
+    }
+
+    public function addQuery($query, $bindings, $time) {
+        $this->queries[] = array(
+            'query' => $query,
+            'bindings' => $bindings,
+            'time' => $time
+        );
     }
     
     /**

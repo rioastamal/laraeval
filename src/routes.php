@@ -25,9 +25,9 @@ CODE;
 
 // Let's eval the code
 Route::post('laraeval', array('as' => 'laraeval-main', function() {
-    $laraeval = new Laraeval(Input::get('code'));
+    $laraeval = new Laraeval();
     try {
-        $output = $laraeval->execute();
+        $output = $laraeval->execute( Input::get('code') );
     } catch (Exception $e) {
         // Oops something bad happens,
         return $e->getMessage();
@@ -39,7 +39,8 @@ Route::post('laraeval', array('as' => 'laraeval-main', function() {
         'memory' => array(
                 'usage' => $laraeval->getMemoryUsage(),
                 'peak' => $laraeval->getMemoryUsage('peak')
-        )
+        ),
+        'queries' => $laraeval->getQueries()
     );
 
     return View::make('laraeval::iframe-output', $data);

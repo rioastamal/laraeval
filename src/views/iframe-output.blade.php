@@ -34,6 +34,7 @@
         <p>Code Execution Time: {{ sprintf("<strong>%f</strong> %s", $exectime['time'], $exectime['short_format']) }}</p>
         <p>Memory Usage: {{ sprintf("<strong>%s</strong> %s", $memory['usage'], "MB") }}</p>
         <p>Memory Peak: {{ sprintf("<strong>%s</strong> %s", $memory['peak'], "MB") }}</p>
+        <p><?php print_r($queries); ?></p>
     </div>
     
     <div id="output" tabindex="0">{{ $output }}</div>
