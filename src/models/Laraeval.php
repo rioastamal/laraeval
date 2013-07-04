@@ -88,7 +88,7 @@ class Laraeval {
      * @param int $precision - Number of precision digit
      * @return array
      */
-    public function getExecTime($format='micro', $precision=4) {
+    public function getExecTime($format='mili', $precision=4) {
         $result = array(
             'time' => 0.0,
             'format' => 'microseconds',
@@ -106,19 +106,19 @@ class Laraeval {
 
         switch ($format) {
             case 'nano':
-                $result['time'] = number_format($this->execTime * 1000, $precision);
+                $result['time'] = number_format($this->execTime / 1000, $precision);
                 $result['format'] = 'nanoseconds';
                 $result['short_format'] = 'ns';
             break;
 
             case 'mili':
-                $result['time'] = number_format($this->execTime / 1000, $precision);
+                $result['time'] = number_format($this->execTime * 1000, $precision);
                 $result['format'] = 'miliseconds';
                 $result['short_format'] = 'ms';
             break;
 
             case 'second':
-                $result['time'] = number_format($this->execTime / 1000000, $precision);
+                $result['time'] = number_format($this->execTime, $precision);
                 $result['format'] = 'seconds';
                 $result['short_format'] = 'sec';
             break;
