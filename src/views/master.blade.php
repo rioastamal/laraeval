@@ -20,7 +20,7 @@
         height: 30px;
         z-index: 9999;
         position: absolute;
-        top: 0; right: 0;
+        top: 0; right: 14px;
         background: transparent;
         width: 160px;
         overflow: hidden;
@@ -35,15 +35,15 @@
       background: #202020;
       font-size: 12px;
       color: #999;
-      overflow: auto;
+      overflow-y: none;
     }
     #output #output_iframe {
         position: absolute;
         top: 10px; left: 0;
         border: none;
         width: 100%;
-        height: 100%;
-        min-height: 100%;
+        height: 98%;
+        min-height: 98%;
     }
     #switcher ul {
         position: absolute;
@@ -73,6 +73,15 @@
     }
     #switcher ul li a.last {
         margin-right: 0;
+    }
+    #progress {
+        position: absolute;
+        z-index: 11000;
+        right: 0; bottom: 0;
+        padding: 2px 10px;
+        background: #c60000;
+        color: #fff;
+        display: none;
     }
     </style>
 </head>

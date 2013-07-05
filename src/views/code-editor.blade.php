@@ -1,6 +1,7 @@
 @extends('laraeval::master')
 
 @section('content')
+    <div id="progress">Executing...</div>
     <div id="wrapper">
         <div id="switcher">
             <ul>

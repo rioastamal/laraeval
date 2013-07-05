@@ -14,7 +14,7 @@
           padding-left: 5px;
           font-family: Monaco, Menlo, "Andale Mono", "lucida console", "Courier New", monospace;
           line-height: 15px;
-          width: 100%;
+          width: 99%;
         }
         #profiler {
             display: none;
@@ -42,6 +42,9 @@
         }
         #output {
           white-space: pre;
+          width: 99%;
+          height: 99%
+          min-height: 99%;
         }
         .hightlight { color: #DADA05; }
         .clear { clear: both; }
@@ -66,39 +69,8 @@
     </div>
     
     <div id="output" tabindex="0">{{ $output }}</div>
-@endif 
-<script>
-    window.onload = function() {
-        window.parent.showOutput();
-        document.getElementById('output').focus();
-    }
+@endif
 
-    function showOutput() {
-        document.getElementById('profiler').style.display = 'none';
-        document.getElementById('output').style.display = 'block';
-    }
-
-    function showProfiler() {
-        document.getElementById('profiler').style.display = 'block';
-        document.getElementById('output').style.display = 'none';
-    }
-    
-    window.onkeydown = function(e) {
-        charCode = e.which ? e.which : e.keyCode;
-        console.log(charCode);
-
-        // catch CTRL + comma
-        if (e.ctrlKey && charCode == 188) {
-            // show output window
-            window.parent.showCode();
-            window.parent.editor.focus();
-        }
-        // catch CTRL + SHIFT + dot
-        if (e.ctrlKey && e.shiftKey && charCode == 190) {
-            // show profiler window
-            window.parent.showProfiler();
-        }
-    }
-</script>
+@include('laraeval::javascript.iframe-output-js')
 </body>
 </html>

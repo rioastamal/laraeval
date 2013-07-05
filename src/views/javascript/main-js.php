@@ -72,6 +72,14 @@
         }
     }
 
+    function showProgress() {
+        docID('progress').style.display = 'block';
+    }
+
+    function hideProgress() {
+        docID('progress').style.display = 'none';
+    }
+
     docID('anchor-output').onclick = function() {
         showOutput();
     }
@@ -129,6 +137,7 @@
         // catch CTRL + ENTER event
         charCode = e.which ? e.which : e.keyCode;	// Firefox/Mozilla => keyCode
         if (e.ctrlKey && charCode == 13) {
+            showProgress();
             document.frmlaraeval.submit();
             return false;
         }
