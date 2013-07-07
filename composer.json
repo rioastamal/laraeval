@@ -1,6 +1,6 @@
 {
     "name": "laraeval/laraeval",
-    "description": "",
+    "description": "PHP Code evaluator for Laravel 4",
     "authors": [
         {
             "name": "Rio Astamal",
@@ -8,8 +8,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0",
-        "illuminate/support": "4.0.x"
+        "php": ">=5.3.7"
     },
     "autoload": {
         "classmap": [

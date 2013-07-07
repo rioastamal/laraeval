@@ -1,4 +1,5 @@
-<?php 
+<?php
+use Illuminate\Support\Facades\Event as Event;
 /**
  * Class model for evaluating the PHP's code
  *
