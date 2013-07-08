@@ -47,6 +47,9 @@ class Laraeval {
         Event::listen('illuminate.query', function($query, $bindings, $time, $name) use ($me) {
             $me->addQuery($query, $bindings, $time, $name);
         });
+
+        // start output buffering
+        ob_start();
         
         // OK, this is the time...
         $start = microtime(TRUE);
