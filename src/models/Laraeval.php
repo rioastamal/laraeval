@@ -48,13 +48,9 @@ class Laraeval {
             $me->addQuery($query, $bindings, $time, $name);
         });
         
-        
-        // start to buffer the output
-        ob_start();
-        
         // OK, this is the time...
         $start = microtime(TRUE);
-        
+
         $retval = eval($this->code);
         
         $end = microtime(TRUE);
@@ -74,10 +70,7 @@ class Laraeval {
         );
         
         // catch the output buffer that we getting from eval() above
-        $this->output = ob_get_contents();
-        
-        // clear the output buffer
-        ob_end_clean();
+        $this->output = ob_get_clean();
         
         return $this->render();
     }

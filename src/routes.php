@@ -25,17 +25,40 @@ CODE;
 });
 
 // Let's eval the code
-Route::post('laraeval', array('as' => 'laraeval-main', function() {
+Route::post('laraeval', array('as' => 'laraeval-main', function() {   
+    // catch all error
+    App::error(function(Exception $e, $code) {
+        $error = array(
+            'line' => $e->getLine(),
+            'message' => $e->getMessage()
+        );
+
+        ob_end_clean();
+        
+        // return it to fatal view
+        return Response::make( View::make('laraeval::fatal-output', $error), 500 );
+    });
+    
     $laraeval = new Laraeval();
     try {
         $output = $laraeval->execute( Input::get('code') );
+    } catch (PDOException $e) {
+        // Errors from PDOException i.e. wrong database credential, SQL Query errors, etc
+        // are not catchable by PHP parser so function error_get_last() return NULL
+        //
+        // So, we're getting the error message from the thrown PDOException
+        $error = array(
+            'message' => $e->getMessage(),
+            'line' => '?'
+        );
+
+        ob_end_clean();
+
+        // Fatal Error View
+        return Response::make( View::make('laraeval::fatal-output', $error), 500 );
     } catch (Exception $e) {
-        // Oops something bad happens,
-        
-        ob_get_clean();   // clear previous output buffer
-        
-        $data = array('output' => $e->getMessage());
-        return View::make('laraeval::fatal-output', $data);
+        // just return empty, let the App::error() above handle the error
+        return '';
     }
 
     $data = array(
