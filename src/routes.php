@@ -52,8 +52,6 @@ Route::post('laraeval', array('before' => 'ipaddr', 'as' => 'laraeval-main', fun
             'line' => $e->getLine(),
             'message' => $e->getMessage()
         );
-
-        ob_end_clean();
         
         // return it to fatal view
         return Response::make( View::make('laraeval::fatal-output', $error), 500 );
