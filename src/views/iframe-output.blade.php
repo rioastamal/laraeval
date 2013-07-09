@@ -41,7 +41,7 @@
             float: left;
         }
         #output {
-          white-space: pre;
+          white-space: pre-wrap;
           width: 99%;
           height: 99%
           min-height: 99%;
