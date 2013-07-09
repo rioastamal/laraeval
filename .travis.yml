@@ -4,8 +4,6 @@ php:
   - 5.3
   - 5.4
 
-before_script:
-  - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install --dev
+before_script: ./laraeval-travis-build.sh
 
-script: phpunit
+script: phpunit -c ./laraeval-travis-build/phpunit.xml
