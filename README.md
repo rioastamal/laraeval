@@ -1,4 +1,4 @@
-# Laraeval #
+# Laraeval [![Build Status](https://travis-ci.org/astasoft/laraeval.png?branch=development)](https://travis-ci.org/astasoft/laraeval) #
 
 It is often when developing an application we want to try some code 
 just to figure it out something or test the output. We ended up by creating a bunch
