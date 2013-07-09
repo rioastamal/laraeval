@@ -8,42 +8,32 @@
 #
 BASE_DIR=`pwd`
 BUILD_DIR=${BASE_DIR}/laraeval-travis-build
-LARAVEL_FILE=${BUILD_DIR}/laravel-v4.0.5.tar.gz
+LARAVEL_FILE=${BUILD_DIR}/laravel-app.tar.bz2
 LARAVEL_APP_DIR=${BUILD_DIR}/laravel-app
 COMPOSER_PATH=${BUILD_DIR}/composer.json
 PHPUNIT_CONFIG_PATH=${BUILD_DIR}/phpunit.xml
 PHPUNIT_LOADER_PATH=${BUILD_DIR}/phpunit_loader.php
 
+# Composer is slow... so I don't want Travis-CI.org to redownload all the
+# laravel related packages everytime build process spawn.
+LARAVEL_APP_URL='https://dl.dropboxusercontent.com/u/4674107/laraeval/laravel-app.tar.bz2'
+
 mkdir -p $BUILD_DIR
 
-# Download Laravel App v4.0.5
-if [ ! -f ${LARAVEL_FILE} ]; then
-    wget https://github.com/laravel/laravel/archive/v4.0.5.tar.gz -O ${LARAVEL_FILE}
-else
-    echo "[LARAEVAL BUILD NOTICE] File ${LARAVEL_FILE} already exists, skipping download."
-fi
-
-if [ ! -d ${LARAVEL_APP_DIR} ]; then
-    # extract the content of the file
-    tar -zxvf ${LARAVEL_FILE} -C ${BUILD_DIR}/
-
-    # rename it to laravel-app
-    mv ${BUILD_DIR}/laravel-4.0.5 ${LARAVEL_APP_DIR}
-else
-    echo "[LARAEVAL BUILD NOTICE] Directory ${LARAVEL_APP_DIR} already exists, skipping extract."
-fi
-
 # cd to the laravel app
-cd ${LARAVEL_APP_DIR}
+cd ${BUILD_DIR}
 
-# download composer if not exists
-if [ ! -f ./composer.phar ]; then
-    curl -sS https://getcomposer.org/installer | php
+# download our laravel app
+if [ ! -f ${LARAVEL_FILE} ]; then
+    echo -n "[LARAEVAL] Downloading Laravel Framework..."
+    wget ${LARAVEL_APP_URL} -O ${LARAVEL_FILE}
+    echo "done."
+else
+    echo "[LARAEVAL BUILD NOTICE] File ${LARAVEL_FILE} already exists."
 fi
 
-# run laravel installer via composer
-echo "[LARAEVAL] Installing Laravel Framework..."
-php composer.phar --prefer-dist --verbose install
+echo "[LARAEVAL] Extracting Laravel Framework..."
+tar -jxf ${LARAVEL_FILE} -C ./
 
 # write phpunit xml config
 echo -n "[LARAEVAL] Writing phpunit xml config file..."
