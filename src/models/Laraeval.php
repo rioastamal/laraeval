@@ -1,7 +1,6 @@
 <?php
-use Illuminate\Support\Facades\Event as Event;
 /**
- * Class model for evaluating the PHP's code
+ * Class model for evaluating the PHP's code.
  *
  * @author Rio Astamal <me@rioastamal.net>
  */
@@ -54,7 +53,7 @@ class Laraeval {
         // OK, this is the time...
         $start = microtime(TRUE);
 
-        $retval = eval($this->code);
+        $retval = @eval($this->code);
         
         $end = microtime(TRUE);
         $this->execTime = $end - $start;
