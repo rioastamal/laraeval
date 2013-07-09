@@ -1,6 +1,8 @@
 {
     "name": "laraeval/laraeval",
     "description": "PHP Code evaluator for Laravel 4",
+    "keywords": ["laravel", "eval", "illuminate"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Rio Astamal",
