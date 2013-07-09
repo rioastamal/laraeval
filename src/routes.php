@@ -6,8 +6,28 @@
 |
 */
 
+// Filter access by IP
+Route::filter('ipaddr', function() {
+    $allowed_ips = Config::get('laraeval::allowed_ips');
+
+    // check for proxy
+    $proxies = Config::get('trusted_proxies');
+
+    if (! is_array($proxies) AND $proxies === '*') {
+        // trust all ip
+        $proxies = array(Request::getClientIp());
+    }
+    Request::setTrustedProxies($proxies);
+    
+    $user_ip = Request::getClientIp();
+
+    if (! in_array($user_ip, $allowed_ips)) {
+        app::abort(401, 'Access Denied!');
+    }
+});
+
 // Main page for entering the code
-Route::get('laraeval', function() {
+Route::get('laraeval', array('before' => 'ipaddr', function() {
     $default_code = <<<CODE
 // Laraeval Shortcut
 // -----------------
@@ -22,10 +42,10 @@ CODE;
         'output' => ''
     );
     return View::make('laraeval::code-editor', $data);
-});
+}));
 
 // Let's eval the code
-Route::post('laraeval', array('as' => 'laraeval-main', function() {   
+Route::post('laraeval', array('before' => 'ipaddr', 'as' => 'laraeval-main', function() {   
     // catch all error
     App::error(function(Exception $e, $code) {
         $error = array(
