@@ -45,7 +45,7 @@ CODE;
 }));
 
 // Let's eval the code
-Route::post('laraeval', array('before' => 'ipaddr', 'as' => 'laraeval-main', function() {   
+Route::post('laraeval', array('before' => 'ipaddr', 'as' => 'laraeval-main', function() {
     // catch all error
     App::error(function(Exception $e, $code) {
         $error = array(
@@ -70,7 +70,7 @@ Route::post('laraeval', array('before' => 'ipaddr', 'as' => 'laraeval-main', fun
             'line' => '?'
         );
 
-        ob_end_clean();
+        @ob_end_clean();
 
         // Fatal Error View
         return Response::make( View::make('laraeval::fatal-output', $error), 500 );

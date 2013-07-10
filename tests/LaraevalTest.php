@@ -2,17 +2,12 @@
 /**
  * Unit testing for Laraeval model.
  *
- * I just only emulate parsing error on eval here. Emulating PHP Fatal Error
- * that happens inside eval is very tricky since Laravel also catching
- * that error.
+ * Emulating PHP Fatal Error that happens inside eval is very tricky since Laravel also catching
+ * that error. I didn't find any good way to that even with phpunit --proces-isolation.
  *
  * @author Rio Astamal <me@rioastamal.net>
  */
 class LaraevalTest extends PHPUnit_Framework_TestCase {
-    public function testFoo() {
-        $this->assertTrue('foo' === 'foo');
-    }
-
     public function testLaraevalInstance() {
         $laraeval = new Laraeval();
         $this->assertInstanceOf('Laraeval', $laraeval);
@@ -77,5 +72,30 @@ CODE;
         $expect = (Hash::check('laraeval', $hash) ? 'TRUE' : 'FALSE');
 
         $this->assertEquals($expect, $value);
+    }
+
+    public function testRouteGetLaraeval() {
+        $request = Request::create('/laraeval', 'GET');
+        $content = Route::dispatch($request)->getContent();
+
+        // check the response content, it should containts something like
+        // '// Laraeval Shortcut'
+        $this->assertGreaterThan( 0, strpos($content, '// Laraeval Shortcut') );
+    }
+
+    public function testRoutePostLaraeval() {
+        $code = <<<CODE
+echo "Foo Bar";
+CODE;
+        $post = array('code' => $code);
+        Input::merge($post);
+        
+        $request = Request::create('/laraeval', 'POST', $post);
+        
+        $content = Route::dispatch($request)->getContent();
+
+        // check the response content, it should containts string 'Foo Bar'
+        // inside the div output
+        $this->assertGreaterThan( 0, strpos($content, '<div id="output" tabindex="0">Foo Bar</div>') );
     }
 }
