@@ -70,7 +70,7 @@ cat <<AUTO > ${PHPUNIT_LOADER_PATH}
  * This file used to load all Laravel namespaces and classes so we don't have to download all
  * Laravel files inside our workbench.
  */
-define('LARAVEL_BASE_PATH', '/home/astadev/htdocs/www/laraeval/workbench/laraeval/laraeval/laraeval-travis-build/laravel-app');
+define('LARAVEL_BASE_PATH', '${LARAVEL_APP_DIR}');
 
 require LARAVEL_BASE_PATH . '/bootstrap/autoload.php';
 require LARAVEL_BASE_PATH . '/../../src/Laraeval/Laraeval/LaraevalServiceProvider.php';
