@@ -3,8 +3,12 @@
 It is often when developing an application we want to try some code 
 just to figure it out something or test the output. We ended up by creating a bunch
 of dummy controllers or routes just to test. Introducing **Laraeval**! a Laravel 4 package 
-for evaluating your PHP code right inside your browser. Everybody love screenshot so 
-here are some of Laraeval's screenshots.
+for evaluating your PHP code right inside your browser. With Laraeval you can
+quickly prototyping code that flying around inside your head without having to create
+a single file. Just fire up your browser and point to Laraeval address and you're
+ready to go!.
+
+Everybody love screenshot so here are some of Laraeval's screenshots.
 
 Code Editor Window
 ![Code Editor Window](http://farm4.staticflickr.com/3757/9250820122_97e53cc739_b.jpg)
@@ -72,3 +76,7 @@ You can access Laraeval with the following URL http://yourhost/index.php/laraeva
 ## Contribute ##
 
 There are a lot of improvements that can be made to Laraeval. Feel free to send me a **Pull Request**.
+
+## License ##
+
+Laraeval is open source licensed under [MIT license](http://opensource.org/licenses/MIT).
