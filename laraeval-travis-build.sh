@@ -32,8 +32,9 @@ else
     echo "[LARAEVAL BUILD NOTICE] File ${LARAVEL_FILE} already exists."
 fi
 
-echo "[LARAEVAL] Extracting Laravel Framework..."
+echo -n "[LARAEVAL] Extracting Laravel Framework..."
 tar -jxf ${LARAVEL_FILE} -C ./
+echo "done."
 
 # write phpunit xml config
 echo -n "[LARAEVAL] Writing phpunit xml config file..."
@@ -69,10 +70,66 @@ cat <<AUTO > ${PHPUNIT_LOADER_PATH}
  * This file used to load all Laravel namespaces and classes so we don't have to download all
  * Laravel files inside our workbench.
  */
-define('LARAVEL_BASE_PATH', '${LARAVEL_APP_DIR}');
+define('LARAVEL_BASE_PATH', '/home/astadev/htdocs/www/laraeval/workbench/laraeval/laraeval/laraeval-travis-build/laravel-app');
 
 require LARAVEL_BASE_PATH . '/bootstrap/autoload.php';
-require LARAVEL_BASE_PATH . '/bootstrap/start.php';
-require '${BASE_DIR}/src/models/Laraeval.php';
+require LARAVEL_BASE_PATH . '/../../src/Laraeval/Laraeval/LaraevalServiceProvider.php';
+require LARAVEL_BASE_PATH . '/../../src/models/Laraeval.php';
+
+\$app = new Illuminate\Foundation\Application;
+\$env = \$app->detectEnvironment(array(
+
+	'local' => array('your-machine-name'),
+
+));
+\$app->bindInstallPaths(require LARAVEL_BASE_PATH.'/bootstrap/paths.php');
+
+use Illuminate\Http\Request;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Facade;
+use Illuminate\Foundation\AliasLoader;
+use Illuminate\Config\Repository as Config;
+
+\$app->instance('app', \$app);
+
+\$app['env'] = 'testing';
+Facade::clearResolvedInstances();
+Facade::setFacadeApplication(\$app);
+
+\$config = new Config(\$app->getConfigLoader(), \$env);
+
+\$app->instance('config', \$config);
+
+\$app->startExceptionHandling();
+
+if (\$env != 'testing') ini_set('display_errors', 'Off');
+
+if (\$app->runningInConsole())
+{
+	\$app->setRequestForConsoleEnvironment();
+}
+
+\$config = \$app['config']['app'];
+
+date_default_timezone_set(\$config['timezone']);
+
+AliasLoader::getInstance(\$config['aliases'])->register();
+Request::enableHttpMethodParameterOverride();
+
+\$providers = \$config['providers'];
+\$providers[] = 'Laraeval\Laraeval\LaraevalServiceProvider';
+
+\$app->getProviderRepository()->load(\$app, \$providers);
+
+\$app->boot();
+
+\$path = \$app['path'].'/start/global.php';
+if (file_exists(\$path)) require \$path;
+
+\$path = \$app['path']."/start/{\$env}.php";
+
+if (file_exists(\$path)) require \$path;
+
+require \$app['path'].'/routes.php';
 AUTO
 echo "done."
