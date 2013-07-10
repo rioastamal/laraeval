@@ -11,7 +11,7 @@ Route::filter('ipaddr', function() {
     $allowed_ips = Config::get('laraeval::allowed_ips');
 
     // check for proxy
-    $proxies = Config::get('trusted_proxies');
+    $proxies = Config::get('laraeval::trusted_proxies');
 
     if (! is_array($proxies) AND $proxies === '*') {
         // trust all ip
@@ -22,7 +22,7 @@ Route::filter('ipaddr', function() {
     $user_ip = Request::getClientIp();
 
     if (! in_array($user_ip, $allowed_ips)) {
-        app::abort(401, 'Access Denied!');
+        App::abort(401, sprintf('Access Denied from %s!', htmlentities($user_ip)));
     }
 });
 
