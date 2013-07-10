@@ -11,13 +11,13 @@ ready to go!.
 Everybody love screenshot so here are some of Laraeval's screenshots.
 
 Code Editor Window
-![Code Editor Window](http://farm4.staticflickr.com/3757/9250820122_97e53cc739_b.jpg)
+![Code Editor Window](https://dl.dropboxusercontent.com/u/4674107/laraeval/code-editor.png)
 
 Output Window
-![Output Window](http://farm8.staticflickr.com/7284/9248039007_2b66f4144e_b.jpg)
+![Output Window](https://dl.dropboxusercontent.com/u/4674107/laraeval/output-window.png)
 
 Profiler Window
-![Profiler Window](http://farm3.staticflickr.com/2821/9250819862_c61d60950f_b.jpg)
+![Profiler Window](https://dl.dropboxusercontent.com/u/4674107/laraeval/profiler-window.png)
 
 ## Installation ##
 
@@ -64,6 +64,8 @@ $ php artisan config:publish laraeval/laraeval
 You can access Laraeval with the following URL http://yourhost/index.php/laraeval.
 
 ## Configuration ##
+
+You can edit the Laraeval configuration by editing file `app/config/packages/laraeval/laraeval/config.php`.
 
  * `allowed_ips`: List of IP addresses that allowed to access Laraeval.
  * `trusted_proxies`: List of Proxy IP that need to be trusted by Symfony Request object. This is needed when your application is behind proxy such as load balancer or such things. Use value '*' to trust all IP.
