@@ -3,7 +3,7 @@
  * Unit testing for Laraeval model.
  *
  * Emulating PHP Fatal Error that happens inside eval is very tricky since Laravel also catching
- * that error. I didn't find any good way to that even with phpunit --proces-isolation.
+ * that error. I didn't find any good way to that even with phpunit --process-isolation.
  *
  * @author Rio Astamal <me@rioastamal.net>
  */
