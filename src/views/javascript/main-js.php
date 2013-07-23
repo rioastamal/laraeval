@@ -130,6 +130,12 @@
         setFullScreen(editor, true);
         docID('output').style.height = winHeight() + "px";
         editor.focus();
+
+        restorePreviousContent();
+
+        setInterval(function() {
+            saveContent();
+        }, 1000);
     }
 
     // catch the user keyboard event

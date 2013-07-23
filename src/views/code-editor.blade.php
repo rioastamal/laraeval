@@ -13,10 +13,15 @@
         
         <form action="{{ URL::route('laraeval-main') }}" method="post" name="frmlaraeval" target="output_iframe">
             <textarea name="code" id="code">{{{ $code }}}</textarea>
+
+            @if (Input::get('storageid')) 
+            <input type="hidden" name="storageid" value="{{{ Input::get('storageid') }}}">
+            @endif 
         </form>
         <div id="output">
             <iframe id="output_iframe" name="output_iframe" src=""></iframe>
         </div>
     </div>
+    @include('laraeval::javascript.local-storage-js') 
     @include('laraeval::javascript.main-js')
 @stop
