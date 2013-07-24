@@ -63,6 +63,14 @@ $ php artisan config:publish laraeval/laraeval
 
 You can access Laraeval with the following URL http://yourhost/index.php/laraeval.
 
+### Persistent Storage ###
+
+Sometime you don't want to lose all your code when browser is closed, refreshed, crashed or anything else. How to do that? Simple, just add parameter `storageid=[ID]` to the query string when opening Laraeval. You can change `[ID]` with anything you like. Take a look an example below.
+
+`http://yourhost/index.php/laraeval?storageid=foo`
+
+Now even  when your browser is closed all your codes is not gone. Laraeval put it into your browser local storage. When you  open `http://yourhost/index.php/laraeval?storageid=foo` for the next time all your previous code will show up again.
+
 ## Configuration ##
 
 You can edit the Laraeval configuration by editing file `app/config/packages/laraeval/laraeval/config.php`.
