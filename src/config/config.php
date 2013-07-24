@@ -31,4 +31,16 @@ return array(
     | Use value '*' to trust all IP.
     */
     'trusted_proxies' => '*',   // use array('ip_one', 'ip_two') for each IP
+
+    /*
+    |--------------------------------------------------------------------------
+    | HTML5 LocalStorage Prefix
+    |--------------------------------------------------------------------------
+    |
+    | Prefix used when saving editor's content to the window.localStorage
+    | object. This is to prevent Laraeval overriding other storage or
+    | vice versa, preventing other script ovveride Laraeval's storage.
+    */
+    'localstorage_prefix' => 'laraeval_',
+    
 );

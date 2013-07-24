@@ -1,5 +1,6 @@
     <script>
-    var storage_id = '<?php echo (Input::get('storageid', '')); ?>'
+    var storage_prefix = '<?php echo (Config::get('laraeval::localstorage_prefix')); ?>';
+    var storage_id = storage_prefix + '<?php echo (Input::get('storageid', '')); ?>';
     
     // Imitate localstorage object for older browser
     //
@@ -38,7 +39,7 @@
      * should be called on window onload event.
      */
     function restorePreviousContent() {
-        if (storage_id.length == 0) {
+        if (storage_id.replace(storage_prefix, '').length == 0) {
             return;
         }
 
@@ -51,7 +52,7 @@
     }
 
     function saveContent() {
-        if (storage_id.length == 0) {
+        if (storage_id.replace(storage_prefix, '').length == 0) {
             return;
         }
 
