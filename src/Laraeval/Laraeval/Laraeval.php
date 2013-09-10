@@ -1,4 +1,7 @@
-<?php
+<?php namespace Laraeval\Laraeval;
+
+use \Illuminate\Support\Facades\Event;
+use \Exception as Exception;
 /**
  * Class model for evaluating the PHP's code.
  *
