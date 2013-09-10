@@ -1,4 +1,6 @@
 <?php
+
+use Laraeval\Laraeval\Laraeval as Laraeval;
 /**
  * Unit testing for Laraeval model.
  *
@@ -10,7 +12,7 @@
 class LaraevalTest extends PHPUnit_Framework_TestCase {
     public function testLaraevalInstance() {
         $laraeval = new Laraeval();
-        $this->assertInstanceOf('Laraeval', $laraeval);
+        $this->assertInstanceOf('Laraeval\Laraeval\Laraeval', $laraeval);
 
         $laraeval = NULL;
     }

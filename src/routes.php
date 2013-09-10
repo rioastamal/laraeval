@@ -57,7 +57,7 @@ Route::post('laraeval', array('before' => 'ipaddr', 'as' => 'laraeval-main', fun
         return Response::make( View::make('laraeval::fatal-output', $error), 500 );
     });
     
-    $laraeval = new Laraeval();
+    $laraeval = new Laraeval\Laraeval\Laraeval();
     try {
         $output = $laraeval->execute( Input::get('code') );
     } catch (PDOException $e) {
