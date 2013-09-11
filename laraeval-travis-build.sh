@@ -74,7 +74,7 @@ define('LARAVEL_BASE_PATH', '${LARAVEL_APP_DIR}');
 
 require LARAVEL_BASE_PATH . '/bootstrap/autoload.php';
 require LARAVEL_BASE_PATH . '/../../src/Laraeval/Laraeval/LaraevalServiceProvider.php';
-require LARAVEL_BASE_PATH . '/../../src/models/Laraeval.php';
+require LARAVEL_BASE_PATH . '/../../src/Laraeval/Laraeval/Laraeval.php';
 
 \$app = new Illuminate\Foundation\Application;
 \$env = \$app->detectEnvironment(array(
