@@ -7,7 +7,8 @@
             <ul>
                 <li><a href="javascript:void(0)" class="active" id="anchor-code">Code</a></li>
                 <li><a href="javascript:void(0)" class="" id="anchor-output">Output</a></li>
-                <li><a href="javascript:void(0)" class="last" id="anchor-profiler">Profiler</a></li>
+                <li><a href="javascript:void(0)" class="" id="anchor-profiler">Profiler</a></li>
+                <li><a href="javascript:void(0)" class="last" id="anchor-storage">Storage</a></li>
             </ul>
         </div>
         
