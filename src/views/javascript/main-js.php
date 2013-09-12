@@ -43,8 +43,10 @@
     
     function showOutput() {
         docID('output').style.display = 'block';
+        docID('storage').style.display = 'none';
         removeClass('anchor-code', 'active');
         removeClass('anchor-profiler', 'active');
+        removeClass('anchor-storage', 'active');
         addClass('anchor-output', 'active');
 
         try {
@@ -54,22 +56,40 @@
     }
 
     function showCode() {
+        document.frmlaraeval.style.display = 'block';
+        docID('storage').style.display = 'none';
         docID('output').style.display = 'none';
         removeClass('anchor-output', 'active');
         removeClass('anchor-profiler', 'active');
+        removeClass('anchor-storage', 'active');
         addClass('anchor-code', 'active');
     }
 
     function showProfiler() {
         docID('output').style.display = 'block';
+        docID('storage').style.display = 'none';
         removeClass('anchor-code', 'active');
         removeClass('anchor-output', 'active');
+        removeClass('anchor-storage', 'active');
         addClass('anchor-profiler', 'active');
 
         try {
             window.frames[0].showProfiler();
         } catch (e) {
         }
+    }
+
+    function showStorage() {
+        loadStorageList();
+        document.frmlaraeval.style.display = 'none';
+        docID('output').style.display = 'none';
+        docID('storage').style.display = 'block';
+        docID('storageid').focus();
+
+        removeClass('anchor-code', 'active');
+        removeClass('anchor-output', 'active');
+        removeClass('anchor-profiler', 'active');
+        addClass('anchor-storage', 'active');
     }
 
     function showProgress() {
@@ -88,6 +108,9 @@
     }
     docID('anchor-profiler').onclick = function() {
         showProfiler();
+    }
+    docID('anchor-storage').onclick = function() {
+        showStorage();
     }
 
     /**

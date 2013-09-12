@@ -16,6 +16,9 @@
       width: 100%;
       z-index: 999;
     }
+    body {
+        font-family: Monaco, Menlo,"Andale Mono","lucida console","Courier New",monospace !important;
+    }
     #switcher {
         height: 30px;
         z-index: 9999;
@@ -26,7 +29,7 @@
         overflow: hidden;
         font-size: 12px;
     }
-    #output {
+    #output, #storage {
       display: none;
       position: absolute;
       top: 0; left: 0;
@@ -51,7 +54,6 @@
         display: inline;
         right: 0;
         top: -5px;
-        font-family: Monaco, Menlo,"Andale Mono","lucida console","Courier New",monospace !important;
     }
     #switcher ul li {
         float: left;
@@ -82,6 +84,45 @@
         background: #c60000;
         color: #fff;
         display: none;
+    }
+    #storage {
+        padding: 8px;
+        overflow-y: none;
+        overflow-x: auto;
+        min-height: 100%;
+        height: 100%;
+    }
+    #storage h1, h2, h3 {
+        font-size: 200%;
+        margin: 0;
+        padding: 0;
+        font-family: Tahoma, Arial, Monospace;
+    }
+    #storage form {
+        margin-bottom: 2em;
+    }
+    #storage p {
+        line-height: 20px;
+        width: 92%;
+    }
+    #storage form input {
+        border: 1px solid #333;
+        background: #666;
+        font-size: 110%;
+        padding: 4px;
+        width: 30%;
+    }
+    #storage a, #storage a:visited {
+        text-decoration: none;
+        color: #666;
+        padding: 4px;
+    }
+    #storage a:hover {
+        text-decoration: underline;
+        color: #999;
+    }
+    #storage #storage-list li {
+        padding-bottom: 8px;
     }
     </style>
 </head>

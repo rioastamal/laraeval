@@ -22,7 +22,8 @@
         <div id="output">
             <iframe id="output_iframe" name="output_iframe" src=""></iframe>
         </div>
+        @include('laraeval::storage') 
     </div>
     @include('laraeval::javascript.local-storage-js') 
-    @include('laraeval::javascript.main-js')
-@stop
+    @include('laraeval::javascript.main-js') 
+@stop 

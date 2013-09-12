@@ -1,6 +1,7 @@
     <script>
     var storage_prefix = '<?php echo (Config::get('laraeval::localstorage_prefix')); ?>';
     var storage_id = storage_prefix + '<?php echo (Input::get('storageid', '')); ?>';
+    var main_url = '<?php echo URL::route('laraeval-main') ;?>';
     
     // Imitate localstorage object for older browser
     //
@@ -57,5 +58,42 @@
         }
 
         localStorage.setItem( storage_id, editor.getValue() );
+    }
+
+    function getStorageList() {
+        var storage_list = Array();
+        var key = '';
+        // We need to put some variabel to match() method so we can use the RegExp object instead
+        var prefix_regex = new RegExp('^' + storage_prefix);
+        
+        for (var i=0; i<localStorage.length; i++) {
+            // check if the storage has match the laraeval storage prefix
+            key = localStorage.key(i);
+            if (key.match(prefix_regex) != null) {
+                // remove the storage prefix from the key
+                storage_list[storage_list.length] = key.replace(storage_prefix, '');
+            }
+        }
+
+        return storage_list;
+    }
+
+    function loadStorageList() {
+        var storages = getStorageList();
+        var li = '';
+
+        if (storages.length == 0) {
+            li = '<li style="list-style: none;">There\'s no storage at the moment.</li>';
+            docID('storage-list').style.marginLeft = '0';
+            docID('storage-list').style.paddingLeft = '0';
+        } else {
+            storages.sort();
+            for (var i=0; i<storages.length; i++) {
+                li += '<li><a target="_blank" href="' + main_url + '?storageid=';
+                li += encodeURIComponent(storages[i]) + '">' + storages[i] + '</a></li>' + "\n";
+            }
+        } 
+
+        docID('storage-list').innerHTML = li;
     }
     </script>
