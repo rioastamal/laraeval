@@ -19,6 +19,9 @@ Output Window
 Profiler Window
 ![Profiler Window](https://dl.dropboxusercontent.com/u/4674107/laraeval/profiler-window.png)
 
+Storage Window
+![Profiler Window](https://dl.dropboxusercontent.com/u/4674107/laraeval/storage-window.png)
+
 ## Installation ##
 
 Add `laraeval/laraeval` as a requirement to `composer.json`:
@@ -77,6 +80,7 @@ You can edit the Laraeval configuration by editing file `app/config/packages/lar
 
  * `allowed_ips`: List of IP addresses that allowed to access Laraeval.
  * `trusted_proxies`: List of Proxy IP that need to be trusted by Symfony Request object. This is needed when your application is behind proxy such as load balancer or such things. Use value '*' to trust all IP.
+ * `localstorage_prefix`: Prefix used for saving the content (code) to the browser localstorage object.
 
 ## Credit ##
 
