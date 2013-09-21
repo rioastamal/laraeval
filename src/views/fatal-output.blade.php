@@ -34,7 +34,7 @@
     </div>
 
     <div id="output">
-        <h3>Error (Line: {{ $line }})</h4>
+        <h3>Error {{ $file }} (Line: {{ $line }})</h4>
         <p>{{ $message }}</p>
     </div>
     @include('laraeval::javascript.iframe-output-js')

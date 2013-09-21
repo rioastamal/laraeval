@@ -48,8 +48,18 @@ CODE;
 Route::post('laraeval', array('before' => 'ipaddr', 'as' => 'laraeval-main', function() {
     // catch all error
     App::error(function(Exception $e, $code) {
+        // do not show the file name if the error was inside the code editor
+        $file = $e->getFile();
+        $laraeval_file = realpath(__DIR__ . '/Laraeval/Laraeval/Laraeval.php');
+
+        if (strpos($file, $laraeval_file) !== FALSE) {
+            // the error inside the code editor
+            $file = '';
+        }
+        
         $error = array(
             'line' => $e->getLine(),
+            'file' => $file,
             'message' => $e->getMessage()
         );
         
