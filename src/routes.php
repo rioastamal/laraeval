@@ -68,27 +68,7 @@ Route::post('laraeval', array('before' => 'ipaddr', 'as' => 'laraeval-main', fun
     });
     
     $laraeval = new Laraeval\Laraeval\Laraeval();
-    try {
-        $output = $laraeval->execute( Input::get('code') );
-    } catch (PDOException $e) {
-        // Errors from PDOException i.e. wrong database credential, SQL Query errors, etc
-        // are not catchable by PHP parser so function error_get_last() return NULL
-        //
-        // So, we're getting the error message from the thrown PDOException
-        $error = array(
-            'message' => $e->getMessage(),
-            'line' => '?'
-        );
-
-        @ob_end_clean();
-
-        // Fatal Error View
-        return Response::make( View::make('laraeval::fatal-output', $error), 500 );
-    } catch (Exception $e) {
-        // just return empty, let the App::error() above handle the error
-        return '';
-    }
-
+    $output = $laraeval->execute( Input::get('code') );
     $data = array(
         'output' => $output,
         'exectime' => $laraeval->getExecTime(),
